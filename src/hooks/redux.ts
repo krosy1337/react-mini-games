@@ -1,13 +1,16 @@
-import { bindActionCreators } from "@reduxjs/toolkit";
-import { TypedUseSelectorHook, useDispatch, useSelector } from "react-redux";
-import {checkWinner, makeMove } from "store/slices/ticTacToeSlice";
-import { RootState } from "store/store";
+import {bindActionCreators} from "@reduxjs/toolkit"
+import {TypedUseSelectorHook, useDispatch, useSelector} from "react-redux"
+import {setWinner, makeMove, setCurrentMove, resetGame, setWinLine} from "store/slices/ticTacToeSlice"
+import {RootState} from "store/store"
 
 export const useAppSelector: TypedUseSelectorHook<RootState> = useSelector
 
 const actionCreators = {
     makeMove,
-    checkWinner,
+    setWinner,
+    setCurrentMove,
+    resetGame,
+    setWinLine,
 }
 
 export const useActions = () => {

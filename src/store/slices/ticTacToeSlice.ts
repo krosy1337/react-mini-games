@@ -1,8 +1,9 @@
 import {createSlice, PayloadAction} from "@reduxjs/toolkit"
-import {GameSymbols, ICell, IGame} from "types/TicTacToe"
+import {GameSymbols, ICell, IGame, IWinLine} from "types/TicTacToe"
 
-const initState = (): IGame => {
-    const board = new Array(9).map((i): ICell => {
+
+const initState = (firstMove: GameSymbols.X | GameSymbols.O = GameSymbols.X): IGame => {
+    const board = new Array(9).fill(0).map((_, i): ICell => {
         return {
             id: i,
             symbol: null,
@@ -11,54 +12,41 @@ const initState = (): IGame => {
 
     return {
         board,
-        currentMove: GameSymbols.X,
+        currentMove: firstMove,
         winner: null,
+        winLine: null,
         isFinished: false,
     }
 }
 
-const initialState = initState()
-
-const lines = [
-    [0, 1, 2],
-    [3, 4, 5],
-    [6, 7, 8],
-    [0, 3, 6],
-    [1, 4, 7],
-    [2, 5, 8],
-    [0, 4, 8],
-    [2, 4, 6],
-]
+const initialState: IGame = initState()
 
 export const ticTacToeSlice = createSlice({
     name: 'ticTacToe',
     initialState,
     reducers: {
-        makeMove: (state, action: PayloadAction<number>) => {
-            const id = state.board.indexOf({id: action.payload, symbol: null})
-            if (!id)
-                return
-            const cell: ICell = state.board[id]
-            if (state.currentMove === GameSymbols.X) {
-                cell.symbol = GameSymbols.X
-                state.currentMove = GameSymbols.X
-            } else {
-                cell.symbol = GameSymbols.O
-                state.currentMove = GameSymbols.O
-            }
-            state.board[id] = cell
+        makeMove: (state, action: PayloadAction<{id: number, symbol: GameSymbols.X | GameSymbols.O}>) => {
+            state.board[action.payload.id].symbol = action.payload.symbol
         },
-        checkWinner: (state) => {
-            lines.forEach((line) => {
-                const [a, b, c] = line
-                if (state.board[a].symbol && state.board[a].symbol === state.board[b].symbol && state.board[a].symbol === state.board[c].symbol) {
-                    state.winner = state.board[a].symbol
-                }
-            })
+        setCurrentMove: (state, action: PayloadAction<GameSymbols.X | GameSymbols.O>) => {
+            state.currentMove = action.payload
+        },
+        setWinLine: (state, action: PayloadAction<IWinLine>) => {
+            state.winLine = action.payload
+        },
+        setWinner: (state, action: PayloadAction<GameSymbols>) => {
+            state.winner = action.payload
+            state.isFinished = true
+        },
+        resetGame: (state, action: PayloadAction<GameSymbols.X | GameSymbols.O>) => {
+            state.board = initState(action.payload).board
+            state.winner = null
+            state.currentMove = action.payload
+            state.isFinished = false
         },
     },
 })
 
-export const { makeMove, checkWinner } = ticTacToeSlice.actions
+export const { makeMove, setWinner, setCurrentMove, resetGame, setWinLine } = ticTacToeSlice.actions
 
 export default ticTacToeSlice.reducer

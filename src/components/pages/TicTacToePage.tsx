@@ -21,7 +21,7 @@ const TicTacToePage: FC = () => {
     }
 
     return (
-        <Container sx={{paddingTop: 10, display: "flex", flexDirection: "column", alignItems: "center",}}>
+        <Container sx={{padding: 0, paddingTop: 10, display: "flex", flexDirection: "column", alignItems: "center",}}>
             {
                 isFinished
                     ?

@@ -1,10 +1,11 @@
 import React, {FC} from 'react'
-import TicTacToePage from "./TicTacToePage"
+import {Navigate} from "react-router-dom"
+import {RouteNames} from "types/routes"
 
 const HomePage: FC = () => {
     return (
         <>
-            <TicTacToePage/>
+            <Navigate to={RouteNames.TIC_TAC_TOE} />
         </>
     )
 }

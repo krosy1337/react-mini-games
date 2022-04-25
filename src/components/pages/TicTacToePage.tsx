@@ -1,8 +1,8 @@
 import React, {FC} from 'react'
 import Board from "../TicTacToe/Board"
 import {Box, Container, Typography} from "@mui/material"
-import {useActions, useAppSelector} from "../../hooks/redux"
-import {GameSymbols} from "../../types/TicTacToe"
+import {useActions, useAppSelector} from "hooks/redux"
+import {GameSymbols} from "types/TicTacToe"
 import Cross from "../TicTacToe/Symbols/Cross"
 import Circle from "../TicTacToe/Symbols/Circle"
 import CustomButton from "../UI/CustomButton"

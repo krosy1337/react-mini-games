@@ -1,4 +1,4 @@
-import React, {FC} from 'react'
+import React, {FC, useEffect} from 'react'
 import Board from "../TicTacToe/Board"
 import {Box, Container, Typography} from "@mui/material"
 import {useActions, useAppSelector} from "hooks/redux"
@@ -11,6 +11,10 @@ import { AnimatePresence } from 'framer-motion'
 const TicTacToePage: FC = () => {
     const {currentMove, isFinished, winner} = useAppSelector(state => state.ticTacToe)
     const {resetGame} = useActions()
+
+    useEffect(() => {
+        document.title = "TicTacToe"
+    }, [])
 
     const restartGame = () => {
         resetGame(currentMove)

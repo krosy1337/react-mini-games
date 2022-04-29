@@ -1,10 +1,12 @@
 import React, {FC} from 'react'
 import {useRoutes} from "react-router-dom"
 import HomePage from "./components/pages/HomePage"
-import {CssBaseline} from "@mui/material"
+import {createTheme, CssBaseline, ThemeProvider} from "@mui/material"
 import TicTacToePage from "./components/pages/TicTacToePage"
 import Layout from "./components/layout/Layout"
 import {RouteNames} from "./types/routes"
+import {useAppSelector} from "./hooks/redux"
+import {darkTheme, lightTheme} from "./theme"
 
 const App: FC = () => {
     const routes = useRoutes([
@@ -23,11 +25,14 @@ const App: FC = () => {
             ],
         },
     ])
+
+    const {mode} = useAppSelector(state => state.app)
+    const theme = createTheme(mode === 'light' ? lightTheme : darkTheme)
     return (
-        <>
+        <ThemeProvider theme={theme}>
             <CssBaseline />
             {routes}
-        </>
+        </ThemeProvider>
     )
 }
 

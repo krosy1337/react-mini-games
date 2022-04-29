@@ -1,5 +1,5 @@
 import React, {FC, useEffect} from 'react'
-import {Card, Grid} from "@mui/material"
+import {Card, Grid, useTheme} from "@mui/material"
 import {useActions, useAppSelector} from "hooks/redux"
 import Cell from "./Cell"
 import {GameSymbols, gameWins, ICell} from "types/TicTacToe"
@@ -7,6 +7,7 @@ import WinLine from "./WinLine"
 import {AnimatePresence} from "framer-motion"
 
 const Board: FC = () => {
+    const theme = useTheme()
     const {makeMove, setCurrentMove, setWinner, setWinLine} = useActions()
     const {currentMove, board, isFinished, winner} = useAppSelector(state => state.ticTacToe)
     useEffect(() => {
@@ -54,7 +55,6 @@ const Board: FC = () => {
     return (
         <Card sx={{
             padding: 3,
-            backgroundColor: "#eee",
             margin: "auto",
             display: "flex",
             justifyContent: "center",
@@ -63,7 +63,7 @@ const Board: FC = () => {
             zIndex: 1,
         }}>
             <Grid container
-                  sx={{width: 212, height: 212, border: "1px solid #000", borderRadius: 2, position: "relative"}}>
+                  sx={{width: 212, height: 212, border: `1px solid ${theme.palette.getContrastText(theme.palette.background.default)}`, borderRadius: 2, position: "relative"}}>
                 {board.map((cell: ICell) =>
                     <Grid key={cell.id} item xs={4}>
                         <Cell id={cell.id} symbol={cell.symbol} clickHandler={clickHandler}/>

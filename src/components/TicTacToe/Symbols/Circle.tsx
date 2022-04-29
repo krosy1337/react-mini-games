@@ -1,7 +1,10 @@
 import React, {FC} from 'react'
 import {motion} from "framer-motion"
+import {useTheme} from "@mui/material"
 
 const Circle: FC = () => {
+    const theme = useTheme()
+
     const variants = {
         hidden: {pathLength: 0, opacity: 0,},
         visible: {
@@ -16,7 +19,7 @@ const Circle: FC = () => {
         <motion.svg width={70} height={70} viewBox="0 0 70 70" initial="hidden"
                     animate="visible" exit="hidden">
             <motion.circle cx={35} cy={35} r="30"
-                           stroke="#ff0055" strokeWidth={3} fill="transparent" strokeLinecap="round"
+                           stroke={theme.palette.warning.main} strokeWidth={3} fill="transparent" strokeLinecap="round"
                            variants={variants}/>
 
         </motion.svg>

@@ -1,5 +1,6 @@
 import {bindActionCreators} from "@reduxjs/toolkit"
 import {TypedUseSelectorHook, useDispatch, useSelector} from "react-redux"
+import { setMode } from "store/slices/appSlice"
 import {setWinner, makeMove, setCurrentMove, resetGame, setWinLine} from "store/slices/ticTacToeSlice"
 import {RootState} from "store/store"
 
@@ -11,6 +12,7 @@ const actionCreators = {
     setCurrentMove,
     resetGame,
     setWinLine,
+    setMode,
 }
 
 export const useActions = () => {

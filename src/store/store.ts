@@ -1,9 +1,11 @@
 import { configureStore } from '@reduxjs/toolkit'
 import ticTacToeReducer from "./slices/ticTacToeSlice"
+import appReducer from "./slices/appSlice"
 
 export const store = configureStore({
     reducer: {
         ticTacToe: ticTacToeReducer,
+        app: appReducer,
     },
 })
 

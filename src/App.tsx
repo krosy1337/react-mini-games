@@ -7,6 +7,7 @@ import Layout from "./components/layout/Layout"
 import {RouteNames} from "./types/routes"
 import {useAppSelector} from "./hooks/redux"
 import {darkTheme, lightTheme} from "./theme"
+import ChessPage from "components/pages/ChessPage"
 
 const App: FC = () => {
     const routes = useRoutes([
@@ -21,6 +22,10 @@ const App: FC = () => {
                 {
                     path: RouteNames.TIC_TAC_TOE,
                     element: <TicTacToePage />,
+                },
+                {
+                    path: RouteNames.CHESS,
+                    element: <ChessPage />,
                 },
             ],
         },

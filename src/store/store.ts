@@ -1,6 +1,7 @@
 import {combineReducers, configureStore} from '@reduxjs/toolkit'
 import ticTacToeReducer from "./slices/ticTacToeSlice"
 import appReducer from "./slices/appSlice"
+import chessReducer from "./slices/chessSlice"
 import {
     persistStore, persistReducer, FLUSH,
     REHYDRATE,
@@ -13,6 +14,7 @@ import storage from 'redux-persist/lib/storage'
 
 const rootReducer = combineReducers({
     ticTacToe: ticTacToeReducer,
+    chess: chessReducer,
     app: appReducer,
 })
 
@@ -29,7 +31,9 @@ export const store = configureStore({
     middleware: (getDefaultMiddleware) =>
         getDefaultMiddleware({
             serializableCheck: {
-                ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
+                ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER, 'chess/setBoard', 'chess/setSelectedCell',
+                    'chess/setCurrentPlayer'],
+                ignoreState: true,
             },
         }),
 })
